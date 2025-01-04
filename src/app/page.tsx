@@ -1,4 +1,11 @@
 import Image from "next/image";
+import { FaReact } from "react-icons/fa";
+import { RiNextjsFill } from "react-icons/ri";
+import { TbBrandTypescript } from "react-icons/tb";
+import { RiTailwindCssLine } from "react-icons/ri";
+import { SiNestjs, SiExpress, SiPrisma, SiPostgresql } from "react-icons/si";
+import { GrMysql } from "react-icons/gr";
+import { TbBrandMongodb } from "react-icons/tb";
 
 export default function Home() {
   return (
@@ -22,6 +29,50 @@ export default function Home() {
           </li>
           <li>Save and see your changes instantly.</li>
         </ol>
+
+        {/* Icon Section */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 mt-6">
+          <div className="flex flex-col items-center">
+            <FaReact size={40} color="#61DAFB" title="React" />
+            <p className="text-xs mt-2">React</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <RiNextjsFill size={40} color="black" title="Next.js" />
+            <p className="text-xs mt-2">Next.js</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <TbBrandTypescript size={40} color="#3178C6" title="TypeScript" />
+            <p className="text-xs mt-2">TypeScript</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <RiTailwindCssLine size={40} color="#06B6D4" title="Tailwind CSS" />
+            <p className="text-xs mt-2">Tailwind</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <SiNestjs size={40} color="#E0234E" title="NestJS" />
+            <p className="text-xs mt-2">NestJS</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <SiExpress size={40} color="black" title="Express" />
+            <p className="text-xs mt-2">Express</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <SiPrisma size={40} color="#2D3748" title="Prisma" />
+            <p className="text-xs mt-2">Prisma</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <GrMysql size={40} color="#00758F" title="MySQL" />
+            <p className="text-xs mt-2">MySQL</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <SiPostgresql size={40} color="#336791" title="PostgreSQL" />
+            <p className="text-xs mt-2">PostgreSQL</p>
+          </div>
+          <div className="flex flex-col items-center">
+            <TbBrandMongodb size={40} color="#47A248" title="MongoDB" />
+            <p className="text-xs mt-2">MongoDB</p>
+          </div>
+        </div>
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
           <a
