@@ -73,7 +73,7 @@ export default function LogoJuntoPage() {
             <div
               key={index}
               className="absolute w-full h-full text-[25rem] font-bold montserrat flex items-center justify-center"
-              style={{ color: "#f78629", top: "20%", transform: "translateY(-50%)" }}
+              style={{ color: "#f78629" }}
             >
               {char}
             </div>
@@ -97,7 +97,7 @@ export default function LogoJuntoPage() {
         </div>
 
         {colorfulLogoUrl && (
-          <Image src={colorfulLogoUrl} alt="Colorful Logo" width={500} height={-500} className="object-contain" />
+          <Image src={colorfulLogoUrl} alt="Colorful Logo" width={500} height={500} className="object-contain" />
         )}
       </div>
     </div>
