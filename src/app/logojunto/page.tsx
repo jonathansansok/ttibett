@@ -1,32 +1,37 @@
-// my-next-app\src\app\logojunto\page.tsx
 "use client";
 
-import { useRef, RefObject } from "react";
+import { useRef, useState, useEffect } from "react";
 import html2canvas from "html2canvas";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function LogoJuntoPage() {
-  const logoRef = useRef<HTMLDivElement | null>(null);
   const colorfulLogoRef = useRef<HTMLDivElement | null>(null);
+  const [colorfulLogoUrl, setColorfulLogoUrl] = useState<string | null>(null);
   const router = useRouter();
 
-  const downloadLogo = async (
-    ref: RefObject<HTMLDivElement | null>,
-    format: string,
-    filename: string
-  ) => {
-    const logoElement = ref.current;
-    if (!logoElement) return;
-  
-    // Espera a que las fuentes se carguen correctamente antes de la captura
-    await document.fonts.ready;
-  
-    const canvas = await html2canvas(logoElement, { scale: 4, useCORS: true });
-    const link = document.createElement("a");
-    link.download = `${filename}.${format}`;
-    link.href = canvas.toDataURL();
-    link.click();
-  };
+  useEffect(() => {
+    const generateLogo = async (ref: React.RefObject<HTMLDivElement | null>, setUrl: (url: string) => void) => {
+      const logoElement = ref.current;
+      if (!logoElement) return;
+
+      console.log("Generating logo for", logoElement);
+
+      // Espera a que las fuentes se carguen correctamente antes de la captura
+      await document.fonts.ready;
+      console.log("Fonts loaded");
+
+      const canvas = await html2canvas(logoElement, { scale: 4, useCORS: true });
+      console.log("Canvas created");
+
+      const url = canvas.toDataURL();
+      console.log("Canvas data URL:", url);
+
+      setUrl(url);
+    };
+
+    generateLogo(colorfulLogoRef, setColorfulLogoUrl);
+  }, []);
 
   const logoChars = ["ㄒ", "ㄒ", "丨", "乃", "乇", "ㄒ", "ㄒ"];
   const colorfulLogoChars = ["乇", "ㄒ", "ㄒ", "丨", "乃"];
@@ -58,53 +63,43 @@ export default function LogoJuntoPage() {
         Volver
       </button>
 
-      <div
-        ref={logoRef}
-        className="relative w-[500px] h-[500px] flex items-center justify-center bg-black shadow-lg rounded-lg"
-        style={{ position: "relative", overflow: "hidden" }}
-      >
-        {logoChars.map((char, index) => (
-          <div
-            key={index}
-            className={`absolute w-[100%] h-[100%] text-[25rem] font-bold montserrat tracking-wide flex items-center justify-center ${index === 2 || index === 3 ? 'mt-[-40px]' : 'mt-[-30px]'}`}
-            style={{ color: "#f78629" }}
-          >
-            {char}
-          </div>
-        ))}
+      {/* Contenedor padre para los dos logos */}
+      <div className="flex flex-col gap-8">
+        {/* Logo Original */}
+        <div
+          className="relative w-[500px] h-[500px] flex items-center justify-center bg-black shadow-lg rounded-lg overflow-hidden"
+        >
+          {logoChars.map((char, index) => (
+            <div
+              key={index}
+              className="absolute w-full h-full text-[25rem] font-bold montserrat flex items-center justify-center"
+              style={{ color: "#f78629", top: "20%", transform: "translateY(-50%)" }}
+            >
+              {char}
+            </div>
+          ))}
+        </div>
+
+        {/* Logo Colorido */}
+        <div
+          ref={colorfulLogoRef}
+          className="relative w-[500px] h-[500px] flex items justify-center bg-black shadow-lg rounded-lg overflow-hidden"
+        >
+          {colorfulLogoChars.map((char, index) => (
+            <div
+              key={index}
+              className="absolute w-full h-full text-[24rem] font-bold montserrat flex items-center justify-center"
+              style={{ color: getColor(index), top: "0%" }}
+            >
+              {char}
+            </div>
+          ))}
+        </div>
+
+        {colorfulLogoUrl && (
+          <Image src={colorfulLogoUrl} alt="Colorful Logo" width={500} height={-500} className="object-contain" />
+        )}
       </div>
-
-      <button
-        onClick={() => downloadLogo(logoRef, "png", "ttibett-logo-junto")}
-        className="px-4 py-2 bg-white text-black rounded hover:bg-gray-100 transition mt-4"
-      >
-        Descargar Logo
-      </button>
-
-      <div
-        ref={colorfulLogoRef}
-        className="relative w-[500px] h-[500px] flex items-center justify-center bg-black shadow-lg rounded-lg mt-8"
-        style={{ position: "relative", overflow: "hidden" }}
-      >
-        {colorfulLogoChars.map((char, index) => (
-          <div
-            key={index}
-            className="absolute w-[100%] h-[100%] text-[24rem] font-bold montserrat tracking-wide flex items-center justify-center mt-[-30px]"
-            style={{ color: getColor(index) }}
-          >
-            {char}
-          </div>
-        ))}
-      </div>
-
-      <button
-        onClick={() =>
-          downloadLogo(colorfulLogoRef, "png", "ttibett-logo-colorful")
-        }
-        className="px-4 py-2 bg-white text-black rounded hover:bg-gray-100 transition mt-4"
-      >
-        Descargar Logo Colorido
-      </button>
     </div>
   );
 }

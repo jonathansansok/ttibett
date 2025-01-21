@@ -1,14 +1,21 @@
-// my-next-app\src\api\generate-logo\route.ts
 import puppeteer from 'puppeteer';
 
 export async function GET(req: Request) {
+  console.log('Request received:', req.url);
+
   // Obtener los parámetros de la URL
   const { searchParams } = new URL(req.url);
   const color = searchParams.get('color') || '#f78629';
   const text = searchParams.get('text') || 'ㄒ';
 
+  console.log('Color:', color);
+  console.log('Text:', text);
+
   const browser = await puppeteer.launch({ headless: true }); // Inicia Puppeteer en modo sin cabeza
+  console.log('Browser launched');
+
   const page = await browser.newPage();
+  console.log('New page created');
 
   // Definir el HTML y CSS para el logo
   const htmlContent = `
@@ -32,25 +39,35 @@ export async function GET(req: Request) {
             justify-content: center;
             align-items: center;
             position: relative;
-            top: 50%;  /* Ajustamos la posición sin usar márgenes negativos */
+          }
+          .logo span {
+            position: absolute;
+            top: 50%;
             transform: translateY(-50%);
           }
         </style>
       </head>
       <body>
-        <div class="logo">${text}</div>
+        <div class="logo"><span>${text}</span></div>
       </body>
     </html>
   `;
 
+  console.log('HTML content set');
+
   // Cargar la página con el contenido HTML
   await page.setContent(htmlContent);
+  console.log('Page content loaded');
+
   await page.waitForSelector('.logo'); // Espera a que el logo se cargue
+  console.log('Logo selector found');
 
   // Captura la imagen del logo
   const screenshot = await page.screenshot({ type: 'png' });
+  console.log('Screenshot taken');
 
   await browser.close();
+  console.log('Browser closed');
 
   // Devuelve la imagen como respuesta
   return new Response(screenshot, {
