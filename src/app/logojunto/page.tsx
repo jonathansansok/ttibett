@@ -1,3 +1,4 @@
+// my-next-app\src\app\logojunto\page.tsx
 "use client";
 
 import { useRef, RefObject } from "react";
@@ -16,14 +17,29 @@ export default function LogoJuntoPage() {
   ) => {
     const logoElement = ref.current;
     if (!logoElement) return;
-
-    await document.fonts.ready; // Espera a que las fuentes se carguen
-
+  
+    // Espera a que las fuentes se carguen correctamente antes de la captura
+    await document.fonts.ready;
+  
     const canvas = await html2canvas(logoElement, { scale: 4, useCORS: true });
     const link = document.createElement("a");
     link.download = `${filename}.${format}`;
     link.href = canvas.toDataURL();
     link.click();
+  };
+
+  const logoChars = ["ㄒ", "ㄒ", "丨", "乃", "乇", "ㄒ", "ㄒ"];
+  const colorfulLogoChars = ["乇", "ㄒ", "ㄒ", "丨", "乃"];
+
+  const getColor = (index: number) => {
+    const colors = [
+      "rgba(0, 255, 157, 0.5)",
+      "rgba(0, 255, 127, 0.5)",
+      "rgba(0, 255, 255, 0.5)",
+      "rgba(255, 0, 0, 0.5)",
+      "rgba(247, 134, 41, 0.8)",
+    ];
+    return colors[index % colors.length];
   };
 
   return (
@@ -47,97 +63,15 @@ export default function LogoJuntoPage() {
         className="relative w-[500px] h-[500px] flex items-center justify-center bg-black shadow-lg rounded-lg"
         style={{ position: "relative", overflow: "hidden" }}
       >
-        <div
-          className="absolute w-[100%] h-[100%] text-[25rem] font-bold montserrat tracking-wide flex items-center justify-center"
-          style={{
-            color: "#f78629",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            lineHeight: "1",
-            marginTop: "-30px", // Aplica el margen superior negativo
-          }}
-        >
-          ㄒ
-        </div>
-        <div
-          className="absolute w-[100%] h-[100%] text-[25rem] font-bold montserrat tracking-wide flex items-center justify-center"
-          style={{
-            color: "#f78629",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            lineHeight: "1",
-            marginTop: "-30px", // Aplica el margen superior negativo
-          }}
-        >
-          ㄒ
-        </div>
-        <div
-          className="absolute w-[100%] h-[100%] text-[25rem] font-bold montserrat tracking-wide flex items-center justify-center"
-          style={{
-            color: "#f78629",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            lineHeight: "1",
-            marginTop: "-30px", // Aplica el margen superior negativo
-          }}
-        >
-          丨
-        </div>
-        <div
-          className="absolute w-[100%] h-[100%] text-[25rem] font-bold montserrat tracking-wide flex items-center justify-center"
-          style={{
-            color: "#f78629",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            lineHeight: "1",
-            marginTop: "-30px", // Aplica el margen superior negativo
-          }}
-        >
-          乃
-        </div>
-        <div
-          className="absolute w-[100%] h-[100%] text-[25rem] font-bold montserrat tracking-wide flex items-center justify-center"
-          style={{
-            color: "#f78629",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            lineHeight: "1",
-            marginTop: "-30px", // Aplica el margen superior negativo
-          }}
-        >
-          乇
-        </div>
-        <div
-          className="absolute w-[100%] h-[100%] text-[25rem] font-bold montserrat tracking-wide flex items-center justify-center"
-          style={{
-            color: "#f78629",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            lineHeight: "1",
-            marginTop: "-30px", // Aplica el margen superior negativo
-          }}
-        >
-          ㄒ
-        </div>
-        <div
-          className="absolute w-[100%] h-[100%] text-[25rem] font-bold montserrat tracking-wide flex items-center justify-center"
-          style={{
-            color: "#f78629",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            lineHeight: "1",
-            marginTop: "-30px", // Aplica el margen superior negativo
-          }}
-        >
-          ㄒ
-        </div>
+        {logoChars.map((char, index) => (
+          <div
+            key={index}
+            className={`absolute w-[100%] h-[100%] text-[25rem] font-bold montserrat tracking-wide flex items-center justify-center ${index === 2 || index === 3 ? 'mt-[-40px]' : 'mt-[-30px]'}`}
+            style={{ color: "#f78629" }}
+          >
+            {char}
+          </div>
+        ))}
       </div>
 
       <button
@@ -152,71 +86,15 @@ export default function LogoJuntoPage() {
         className="relative w-[500px] h-[500px] flex items-center justify-center bg-black shadow-lg rounded-lg mt-8"
         style={{ position: "relative", overflow: "hidden" }}
       >
-        <div
-          className="absolute w-[100%] h-[100%] text-[24rem] font-bold montserrat tracking-wide flex items-center justify-center"
-          style={{
-            color: "rgba(0, 255, 157, 0.5)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            lineHeight: "1",
-            marginTop: "-30px", // Aplica el margen superior negativo
-          }}
-        >
-          乇
-        </div>
-        <div
-          className="absolute w-[100%] h-[100%] text-[24rem] font-bold montserrat tracking-wide flex items-center justify-center"
-          style={{
-            color: "rgba(0, 255, 127, 0.5)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            lineHeight: "1",
-            marginTop: "-30px", // Aplica el margen superior negativo
-          }}
-        >
-          ㄒ
-        </div>
-        <div
-          className="absolute w-[100%] h-[100%] text-[24rem] font-bold montserrat tracking-wide flex items-center justify-center"
-          style={{
-            color: "rgba(0, 255, 255, 0.5)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            lineHeight: "1",
-            marginTop: "-30px", // Aplica el margen superior negativo
-          }}
-        >
-          ㄒ
-        </div>
-        <div
-          className="absolute w-[100%] h-[100%] text-[24rem] font-bold montserrat tracking-wide flex items-center justify-center"
-          style={{
-            color: "rgba(255, 0, 0, 0.5)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            lineHeight: "1",
-            marginTop: "-30px", // Aplica el margen superior negativo
-          }}
-        >
-          丨
-        </div>
-        <div
-          className="absolute w-[100%] h-[100%] text-[24rem] font-bold montserrat tracking-wide flex items-center justify-center"
-          style={{
-            color: "rgba(247, 134, 41, 0.8)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            lineHeight: "1",
-            marginTop: "-30px", // Aplica el margen superior negativo
-          }}
-        >
-          乃
-        </div>
+        {colorfulLogoChars.map((char, index) => (
+          <div
+            key={index}
+            className="absolute w-[100%] h-[100%] text-[24rem] font-bold montserrat tracking-wide flex items-center justify-center mt-[-30px]"
+            style={{ color: getColor(index) }}
+          >
+            {char}
+          </div>
+        ))}
       </div>
 
       <button
