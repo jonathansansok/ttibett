@@ -73,7 +73,7 @@ export default function LogoJuntoPage() {
             <div
               key={index}
               className="absolute w-full h-full text-[25rem] font-bold montserrat flex items-center justify-center"
-              style={{ color: "#f78629", top: "20%", transform: "translateY(-50%)" }}
+              style={{ color: "#f78629", top: "0%", transform: "translateY(-50%)" }}
             >
               {char}
             </div>
@@ -89,7 +89,7 @@ export default function LogoJuntoPage() {
             <div
               key={index}
               className="absolute w-full h-full text-[24rem] font-bold montserrat flex items-center justify-center"
-              style={{ color: getColor(index), top: "0%" }}
+              style={{ color: getColor(index), top: "20%", transform: "translateY(-50%)" }}
             >
               {char}
             </div>
