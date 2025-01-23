@@ -8,8 +8,10 @@ import Image from "next/image";
 export default function LogoJuntoPage() {
   const logoRef = useRef<HTMLDivElement | null>(null);
   const colorfulLogoRef = useRef<HTMLDivElement | null>(null);
+  const threeDLogoRef = useRef<HTMLDivElement | null>(null);
   const [logoUrl, setLogoUrl] = useState<string | null>(null);
   const [colorfulLogoUrl, setColorfulLogoUrl] = useState<string | null>(null);
+  const [threeDLogoUrl, setThreeDLogoUrl] = useState<string | null>(null);
   const [isRendered, setIsRendered] = useState<boolean>(false);
   const router = useRouter();
 
@@ -42,6 +44,7 @@ export default function LogoJuntoPage() {
     const renderLogos = async () => {
       await generateLogo(logoRef, setLogoUrl);
       await generateLogo(colorfulLogoRef, setColorfulLogoUrl);
+      await generateLogo(threeDLogoRef, setThreeDLogoUrl);
       setIsRendered(true);
     };
 
@@ -61,10 +64,10 @@ export default function LogoJuntoPage() {
   const getColor = (index: number) => {
     const colors = [
       "rgba(0, 255, 157, 0.5)",
-      "rgba(0, 255, 127, 0.5)",
-      "rgba(0, 255, 255, 0.5)",
-      "rgba(255, 0, 0, 0.5)",
-      "rgba(247, 134, 41, 0.8)",
+"rgba(0, 255, 127, 0.5)",
+"rgba(0, 255, 255, 0.5)",
+"rgba(62, 247, 237, 0.2)", // Bastante transparente y mezcla de otros colores
+"rgba(247, 134, 41, 0.8)"
     ];
     return colors[index % colors.length];
   };
@@ -88,7 +91,7 @@ export default function LogoJuntoPage() {
         Volver
       </button>
 
-      {/* Contenedor padre para los dos logos */}
+      {/* Contenedor padre para los tres logos */}
       <div className="flex flex-col gap-8">
         {/* Logo Original */}
         <div
@@ -133,18 +136,20 @@ export default function LogoJuntoPage() {
         {/* Logo Colorido */}
         <div
           ref={colorfulLogoRef}
-          className={`relative w-[500px] h-[500px] flex items justify-center bg-black   shadow-lg overflow-hidden ${
+          className={`relative w-[500px] h-[500px] flex items justify-center bg-black shadow-lg overflow-hidden ${
             isRendered ? "hidden" : ""
           }`}
         >
           {colorfulLogoChars.map((char, index) => (
             <div
               key={index}
-              className="absolute w-full h-full text-[24rem] font-bold montserrat flex items-center justify-center"
+              className={`absolute w-full h-full font-bold montserrat flex items-center justify-center ${
+                char === "ㄒ" ? "text-[26rem]" : "text-[24rem]"
+              }`}
               style={{
                 color: getColor(index),
                 top: "20%",
-                transform: "translateY(-50%)",
+                transform: char === "丨" ? "translateY(-50%) translateZ(-10px)" : "translateY(-50%)",
               }}
             >
               {char}
@@ -168,6 +173,49 @@ export default function LogoJuntoPage() {
               className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
             >
               Descargar Logo Colorido
+            </button>
+          </>
+        )}
+
+        {/* Logo Tridimensional */}
+        <div
+          ref={threeDLogoRef}
+          className={`relative w-[500px] h-[500px] flex items justify-center bg-black shadow-lg overflow-hidden ${
+            isRendered ? "hidden" : ""
+          }`}
+        >
+          {colorfulLogoChars.map((char, index) => (
+            <div
+              key={index}
+              className={`absolute w-full h-full font-bold montserrat flex items-center justify-center ${
+                char === "ㄒ" ? "text-[26rem]" : "text-[24rem]"
+              }`}
+              style={{
+                color: getColor(index),
+                top: "20%",
+                transform: char === "丨" ? "translateY(-50%) translateZ(-10px)" : "translateY(-50%)",
+                textShadow: "2px 2px 5px rgba(0, 0, 0, 0.3), -2px -2px 5px rgba(0, 0, 0, 0.3)",
+              }}
+            >
+              {char}
+            </div>
+          ))}
+        </div>
+
+        {threeDLogoUrl && (
+          <>
+            <Image
+              src={threeDLogoUrl}
+              alt="3D Logo"
+              width={500}
+              height={500}
+              className="object-contain"
+            />
+            <button
+              onClick={() => downloadImage(threeDLogoUrl, "3d-logo.png")}
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+            >
+              Descargar Logo 3D
             </button>
           </>
         )}

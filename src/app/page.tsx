@@ -37,10 +37,9 @@ export default function TTIBETTBanner() {
           >
             <span style={{ WebkitTextStroke: "6px #F4A261" }}>ㄒ</span>
             <span style={{ WebkitTextStroke: "6px #F4A261" }}>ㄒ</span>
-            <span>丨乃乇</span>
+            <span className="text-[9.7rem]">丨乃乇</span>
             <span style={{ WebkitTextStroke: "6px #F4A261" }}>ㄒ</span>
             <span style={{ WebkitTextStroke: "6px #F4A261" }}>ㄒ</span>
-
           </p>
         </div>
       </div>
@@ -52,7 +51,36 @@ export default function TTIBETTBanner() {
       </button>
     </div>
   );
-
+  const renderThirdBanner = () => (
+    <div className="flex flex-col items-center gap-4 p-4">
+      <div
+        ref={(el) => {
+          bannerRefs.current[2] = el;
+        }}
+        className="relative w-[1470px] h-[367.5px] flex flex-col items-center justify-center shadow-lg bg-white"
+        style={{ paddingBottom: "150px" }}
+      >
+        <div className="flex flex-col items-center z-10">
+          <p
+            className="text-[11rem] font-bold montserrat tracking-wide"
+            style={{ color: "#F4A261" }}
+          >
+            <span style={{ WebkitTextStroke: "6px #F4A261" }}>ㄒ</span>
+            <span style={{ WebkitTextStroke: "6px #F4A261" }}>ㄒ</span>
+            <span className="text-[9.6rem]">丨乃乇</span>
+            <span style={{ WebkitTextStroke: "6px #F4A261" }}>ㄒ</span>
+            <span style={{ WebkitTextStroke: "6px #F4A261" }}>ㄒ</span>
+          </p>
+        </div>
+      </div>
+      <button
+        onClick={() => downloadBanner(2, "png")}
+        className="px-4 py-2 bg-white text-black rounded hover:bg-gray-100 transition"
+      >
+        Descargar Banner TTIBETT Blanco
+      </button>
+    </div>
+  );
   const renderSecondBanner = () => (
     <div className="flex flex-col items-center gap-4 p-4">
       <div
@@ -69,7 +97,7 @@ export default function TTIBETTBanner() {
           >
             <span style={{ WebkitTextStroke: "6px #F4A261" }}>ㄒ</span>
             <span style={{ WebkitTextStroke: "6px #F4A261" }}>ㄒ</span>
-            <span>丨乃乇</span>
+            <span className="text-[9rem]">丨乃乇</span>
             <span style={{ WebkitTextStroke: "6px #F4A261" }}>ㄒ</span>
             <span style={{ WebkitTextStroke: "6px #F4A261" }}>ㄒ</span>
           </p>
@@ -87,10 +115,12 @@ export default function TTIBETTBanner() {
         onClick={() => downloadBanner(1, "png")}
         className="px-4 py-2 bg-white text-black rounded hover:bg-gray-100 transition"
       >
-        Descargar Banner TTIBETT con Signos
+        Descargar Banner TTIBETT con Sigssssnos
       </button>
     </div>
   );
+
+
 
   return (
     <div className="flex flex-col items-center gap-4 p-4">
@@ -102,8 +132,12 @@ export default function TTIBETTBanner() {
       `}</style>
 
       {renderFirstBanner()} {/* Primer banner sin signos zodiacales */}
+
+      
+      {renderThirdBanner()} {/* Nuevo banner con fondo blanco y letras naranjas */}
       {renderSecondBanner()} {/* Segundo banner con signos zodiacales */}
 
+      
       <Link href="/logo" className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition mt-4">
         Ver y Descargar Logo 1:1
       </Link>
