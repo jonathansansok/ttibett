@@ -6,12 +6,18 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 
 export default function LogoJuntoPage() {
+  const logoRef = useRef<HTMLDivElement | null>(null);
   const colorfulLogoRef = useRef<HTMLDivElement | null>(null);
+  const [logoUrl, setLogoUrl] = useState<string | null>(null);
   const [colorfulLogoUrl, setColorfulLogoUrl] = useState<string | null>(null);
+  const [isRendered, setIsRendered] = useState<boolean>(false);
   const router = useRouter();
 
   useEffect(() => {
-    const generateLogo = async (ref: React.RefObject<HTMLDivElement | null>, setUrl: (url: string) => void) => {
+    const generateLogo = async (
+      ref: React.RefObject<HTMLDivElement | null>,
+      setUrl: (url: string) => void
+    ) => {
       const logoElement = ref.current;
       if (!logoElement) return;
 
@@ -21,7 +27,10 @@ export default function LogoJuntoPage() {
       await document.fonts.ready;
       console.log("Fonts loaded");
 
-      const canvas = await html2canvas(logoElement, { scale: 4, useCORS: true });
+      const canvas = await html2canvas(logoElement, {
+        scale: 4,
+        useCORS: true,
+      });
       console.log("Canvas created");
 
       const url = canvas.toDataURL();
@@ -30,8 +39,21 @@ export default function LogoJuntoPage() {
       setUrl(url);
     };
 
-    generateLogo(colorfulLogoRef, setColorfulLogoUrl);
+    const renderLogos = async () => {
+      await generateLogo(logoRef, setLogoUrl);
+      await generateLogo(colorfulLogoRef, setColorfulLogoUrl);
+      setIsRendered(true);
+    };
+
+    renderLogos();
   }, []);
+
+  const downloadImage = (url: string, filename: string) => {
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = filename;
+    link.click();
+  };
 
   const logoChars = ["ㄒ", "ㄒ", "丨", "乃", "乇", "ㄒ", "ㄒ"];
   const colorfulLogoChars = ["乇", "ㄒ", "ㄒ", "丨", "乃"];
@@ -54,6 +76,9 @@ export default function LogoJuntoPage() {
         .montserrat {
           font-family: "Montserrat", serif;
         }
+        .hidden {
+          display: none;
+        }
       `}</style>
 
       <button
@@ -67,29 +92,60 @@ export default function LogoJuntoPage() {
       <div className="flex flex-col gap-8">
         {/* Logo Original */}
         <div
-          className="relative w-[500px] h-[500px] flex items-center justify-center bg-black shadow-lg rounded-lg overflow-hidden"
+          ref={logoRef}
+          className={`relative w-[500px] h-[500px] flex items-center justify-center bg-black shadow-lg overflow-hidden ${
+            isRendered ? "hidden" : ""
+          }`}
         >
           {logoChars.map((char, index) => (
             <div
               key={index}
               className="absolute w-full h-full text-[25rem] font-bold montserrat flex items-center justify-center"
-              style={{ color: "#f78629", top: "0%", transform: "translateY(-50%)" }}
+              style={{
+                color: "#f78629",
+                top: "20%",
+                transform: "translateY(-50%)",
+              }}
             >
               {char}
             </div>
           ))}
         </div>
 
+        {logoUrl && (
+          <>
+            <Image
+              src={logoUrl}
+              alt="Logo"
+              width={500}
+              height={500}
+              className="object-contain"
+            />
+            <button
+              onClick={() => downloadImage(logoUrl, "logo.png")}
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+            >
+              Descargar Logo
+            </button>
+          </>
+        )}
+
         {/* Logo Colorido */}
         <div
           ref={colorfulLogoRef}
-          className="relative w-[500px] h-[500px] flex items justify-center bg-black shadow-lg rounded-lg overflow-hidden"
+          className={`relative w-[500px] h-[500px] flex items justify-center bg-black shadow-lg overflow-hidden ${
+            isRendered ? "hidden" : ""
+          }`}
         >
           {colorfulLogoChars.map((char, index) => (
             <div
               key={index}
               className="absolute w-full h-full text-[24rem] font-bold montserrat flex items-center justify-center"
-              style={{ color: getColor(index), top: "20%", transform: "translateY(-50%)" }}
+              style={{
+                color: getColor(index),
+                top: "20%",
+                transform: "translateY(-50%)",
+              }}
             >
               {char}
             </div>
@@ -97,7 +153,23 @@ export default function LogoJuntoPage() {
         </div>
 
         {colorfulLogoUrl && (
-          <Image src={colorfulLogoUrl} alt="Colorful Logo" width={500} height={-500} className="object-contain" />
+          <>
+            <Image
+              src={colorfulLogoUrl}
+              alt="Colorful Logo"
+              width={500}
+              height={500}
+              className="object-contain"
+            />
+            <button
+              onClick={() =>
+                downloadImage(colorfulLogoUrl, "colorful-logo.png")
+              }
+              className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+            >
+              Descargar Logo Colorido
+            </button>
+          </>
         )}
       </div>
     </div>

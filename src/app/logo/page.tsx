@@ -50,7 +50,7 @@ export default function LogoPage() {
           isWhiteBackground ? "bg-white" : "bg-black"
         } ${isInvertedColors ? "invert" : ""}`}
       >
-        <div className={`text-[5rem] ${isInvertedColors ? 'text-black' : 'text-teal-400'} opacity-70 flex items-center justify-center`}>
+        <div className={`text-[9rem] mt-16 ${isInvertedColors ? 'text-black' : 'text-teal-400'} opacity-70 flex items-center justify-center`}>
           <TbZodiacAquarius />
         </div>
         <div
@@ -63,9 +63,9 @@ export default function LogoPage() {
           className="text-6xl font-bold montserrat tracking-wide flex items-center justify-center"
           style={{ color: isInvertedColors ? "#000" : "#F4A261" }}
         >
-          ㄒ
+          乃
         </div>
-        <div className={`text-[5rem] ${isInvertedColors ? 'text-black' : 'text-[#9B4DFF]'} opacity-70 flex items-center justify-center`}>
+        <div className={`text-[9rem] mt-16 ${isInvertedColors ? 'text-black' : 'text-[#9B4DFF]'} opacity-70 flex items-center justify-center`}>
           <TbZodiacScorpio />
         </div>
       </div>
@@ -99,7 +99,7 @@ export default function LogoPage() {
       {renderVariant(true, false, 2)}
       {renderVariant(true, true, 3)}
 
-      <div ref={lettersRef} className="flex flex-col items-center mt-8">
+      <div ref={lettersRef} className="flex flex-col items-center mt-8 bg-black p-2">
         <p className="text-6xl font-bold montserrat tracking-wide" style={{ color: "#F4A261" }}>
           ㄒ
         </p>
