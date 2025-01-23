@@ -29,7 +29,10 @@ export default function LogoPage() {
 
     await document.fonts.ready; // Espera a que las fuentes se carguen
 
-    const canvas = await html2canvas(lettersElement, { scale: 4, useCORS: true });
+    const canvas = await html2canvas(lettersElement, {
+      scale: 4,
+      useCORS: true,
+    });
     const link = document.createElement("a");
     link.download = `ttibett-letters.${format}`;
     link.href = canvas.toDataURL();
@@ -41,41 +44,52 @@ export default function LogoPage() {
     isInvertedColors: boolean,
     index: number
   ) => (
-    <div key={index} className="flex flex-col items-center gap-4 p-4">
-      <div
-        ref={(el) => {
-          logoRefs.current[index] = el;
-        }}
-        className={`relative w-[500px] h-[500px] grid grid-cols-2 grid-rows-2 items-center justify-center shadow-lg rounded-lg ${
-          isWhiteBackground ? "bg-white" : "bg-black"
-        } ${isInvertedColors ? "invert" : ""}`}
-      >
-        <div className={`text-[9rem] mt-16 ${isInvertedColors ? 'text-black' : 'text-teal-400'} opacity-70 flex items-center justify-center`}>
-          <TbZodiacAquarius />
-        </div>
-        <div
-          className="text-6xl font-bold montserrat tracking-wide flex items-center justify-center"
-          style={{ color: isInvertedColors ? "#000" : "#F4A261" }}
-        >
-          ㄒ
-        </div>
-        <div
-          className="text-6xl font-bold montserrat tracking-wide flex items-center justify-center"
-          style={{ color: isInvertedColors ? "#000" : "#F4A261" }}
-        >
-          乃
-        </div>
-        <div className={`text-[9rem] mt-16 ${isInvertedColors ? 'text-black' : 'text-[#9B4DFF]'} opacity-70 flex items-center justify-center`}>
-          <TbZodiacScorpio />
-        </div>
-      </div>
-      <button
-        onClick={() => downloadLogo(index, "png")}
-        className="px-4 py-2 bg-white text-black rounded hover:bg-gray-100 transition"
-      >
-        Descargar Variante {index + 1}
-      </button>
+<div key={index} className="flex flex-col items-center gap-4 p-4">
+  <div
+    ref={(el) => {
+      logoRefs.current[index] = el;
+    }}
+    className={`relative w-[500px] h-[500px] grid grid-cols-2 grid-rows-2 items-center justify-center shadow-lg rounded-lg ${
+      isWhiteBackground ? "bg-white" : "bg-black"
+    } ${isInvertedColors ? "invert" : ""}`}
+  >
+    <div
+      className={`text-[9rem] mt-12 ${
+        isInvertedColors ? "text-black" : "text-teal-400"
+      } opacity-70 flex items-center justify-center transform translate-x-4 -translate-y-6`}
+    >
+      <TbZodiacAquarius />
     </div>
+    <div
+      className="text-9xl font-bold montserrat tracking-wide flex items-center justify-center -mt-12 transform translate-x-5 -translate-y-6"
+      style={{
+        color: isInvertedColors ? "#000" : "#F4A261",
+        WebkitTextStroke: "4px #F4A261", // Añadir contorno para hacer la letra más gruesa
+      }}
+    >
+      ㄒ
+    </div>
+    <div
+      className="text-8xl font-bold montserrat tracking-wide flex items-center justify-center -mt-12 transform translate-x-4 -translate-y-2"
+      style={{ color: isInvertedColors ? "#000" : "#F4A261" }}
+    >
+      乃
+    </div>
+    <div
+      className={`text-[9rem] mt-12 ${
+        isInvertedColors ? "text-black" : "text-[#9B4DFF]"
+      } opacity-70 flex items-center justify-center transform translate-x-4 -translate-y-2`}
+    >
+      <TbZodiacScorpio />
+    </div>
+  </div>
+  <button
+    onClick={() => downloadLogo(index, "png")}
+    className="px-4 py-2 bg-white text-black rounded hover:bg-gray-100 transition"
+  >
+    Descargar Variante {index + 1}
+  </button>
+</div>
   );
 
   return (
@@ -99,29 +113,65 @@ export default function LogoPage() {
       {renderVariant(true, false, 2)}
       {renderVariant(true, true, 3)}
 
-      <div ref={lettersRef} className="flex flex-col items-center mt-8 bg-black p-2">
-        <p className="text-6xl font-bold montserrat tracking-wide" style={{ color: "#F4A261" }}>
-          ㄒ
-        </p>
-        <p className="text-6xl font-bold montserrat tracking-wide" style={{ color: "#F4A261" }}>
-          ㄒ
-        </p>
-        <p className="text-6xl font-bold montserrat tracking-wide" style={{ color: "#F4A261" }}>
-          丨
-        </p>
-        <p className="text-6xl font-bold montserrat tracking-wide" style={{ color: "#F4A261" }}>
-          乃
-        </p>
-        <p className="text-6xl font-bold montserrat tracking-wide" style={{ color: "#F4A261" }}>
-          乇
-        </p>
-        <p className="text-6xl font-bold montserrat tracking-wide" style={{ color: "#F4A261" }}>
-          ㄒ
-        </p>
-        <p className="text-6xl font-bold montserrat tracking-wide" style={{ color: "#F4A261" }}>
-          ㄒ
-        </p>
-      </div>
+      <div
+  ref={lettersRef}
+  className="flex flex-col items-center mt-8 bg-black p-4 pt-8 pb-8"
+>
+  <p
+    className="text-6xl font-bold montserrat tracking-wide my-4"
+    style={{
+      color: "#F4A261",
+      WebkitTextStroke: "6px #F4A261", // Añadir contorno para hacer la letra más gruesa
+    }}
+  >
+    ㄒ
+  </p>
+  <p
+    className="text-6xl font-bold montserrat tracking-wide my-4"
+    style={{
+      color: "#F4A261",
+      WebkitTextStroke: "6px #F4A261", // Añadir contorno para hacer la letra más gruesa
+    }}
+  >
+    ㄒ
+  </p>
+  <p
+    className="text-6xl font-bold montserrat tracking-wide my-4"
+    style={{ color: "#F4A261" }}
+  >
+    丨
+  </p>
+  <p
+    className="text-6xl font-bold montserrat tracking-wide my-4"
+    style={{ color: "#F4A261" }}
+  >
+    乃
+  </p>
+  <p
+    className="text-6xl font-bold montserrat tracking-wide my-4"
+    style={{ color: "#F4A261" }}
+  >
+    乇
+  </p>
+  <p
+    className="text-6xl font-bold montserrat tracking-wide my-4"
+    style={{
+      color: "#F4A261",
+      WebkitTextStroke: "6px #F4A261", // Añadir contorno para hacer la letra más gruesa
+    }}
+  >
+    ㄒ
+  </p>
+  <p
+    className="text-6xl font-bold montserrat tracking-wide my-4 pb-10"  
+    style={{
+      color: "#F4A261",
+      WebkitTextStroke: "6px #F4A261", // Añadir contorno para hacer la letra más gruesa
+    }}
+  >
+    ㄒ
+  </p>
+</div>
       <button
         onClick={() => downloadLetters("png")}
         className="px-4 py-2 bg-white text-black rounded hover:bg-gray-100 transition mt-4"

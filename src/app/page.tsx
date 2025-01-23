@@ -1,4 +1,3 @@
-//my-next-app\src\app\page.tsx
 "use client";
 
 import { useRef } from "react";
@@ -22,42 +21,73 @@ export default function TTIBETTBanner() {
     link.click();
   };
 
-  const renderVariant = (
-    isWhiteBackground: boolean,
-    isInvertedColors: boolean,
-    index: number
-  ) => (
-    <div key={index} className="flex flex-col items-center gap-4 p-4">
+  const renderFirstBanner = () => (
+    <div className="flex flex-col items-center gap-4 p-4">
       <div
         ref={(el) => {
-          bannerRefs.current[index] = el;
+          bannerRefs.current[0] = el;
         }}
-        className={`relative w-[1470px] h-[367.5px] flex flex-col items-center justify-center shadow-lg rounded-lg ${
-          isWhiteBackground ? "bg-white" : "bg-black"
-        } ${isInvertedColors ? "invert" : ""}`}
+        className="relative w-[1470px] h-[367.5px] flex flex-col items-center justify-center shadow-lg bg-black"
+        style={{ paddingBottom: "150px" }}
       >
         <div className="flex flex-col items-center z-10">
           <p
-            className="text-6xl font-bold montserrat tracking-wide"
-            style={{ color: isInvertedColors ? "#000" : "#F4A261" }}
+            className="text-[11rem] font-bold montserrat tracking-wide"
+            style={{ color: "#F4A261" }}
           >
-            ㄒㄒ丨乃乇ㄒㄒ
+            <span style={{ WebkitTextStroke: "6px #F4A261" }}>ㄒ</span>
+            <span style={{ WebkitTextStroke: "6px #F4A261" }}>ㄒ</span>
+            <span>丨乃乇</span>
+            <span style={{ WebkitTextStroke: "6px #F4A261" }}>ㄒ</span>
+            <span style={{ WebkitTextStroke: "6px #F4A261" }}>ㄒ</span>
+
+          </p>
+        </div>
+      </div>
+      <button
+        onClick={() => downloadBanner(0, "png")}
+        className="px-4 py-2 bg-white text-black rounded hover:bg-gray-100 transition"
+      >
+        Descargar Banner TTIBETT
+      </button>
+    </div>
+  );
+
+  const renderSecondBanner = () => (
+    <div className="flex flex-col items-center gap-4 p-4">
+      <div
+        ref={(el) => {
+          bannerRefs.current[1] = el;
+        }}
+        className="relative w-[1470px] h-[367.5px] flex flex-col items-center justify-center shadow-lg bg-white"
+        style={{ paddingBottom: "80px" }}
+      >
+        <div className="flex flex-col items-center z-10">
+          <p
+            className="text-[9rem] font-bold montserrat tracking-wide"
+            style={{ color: "#F4A261" }}
+          >
+            <span style={{ WebkitTextStroke: "6px #F4A261" }}>ㄒ</span>
+            <span style={{ WebkitTextStroke: "6px #F4A261" }}>ㄒ</span>
+            <span>丨乃乇</span>
+            <span style={{ WebkitTextStroke: "6px #F4A261" }}>ㄒ</span>
+            <span style={{ WebkitTextStroke: "6px #F4A261" }}>ㄒ</span>
           </p>
         </div>
         <div className="flex flex-row items-center gap-4 mt-2">
-          <div className={`text-[5rem] ${isInvertedColors ? 'text-black' : 'text-teal-400'} opacity-70`}>
+          <div className="text-[6.25rem] text-teal-400 opacity-70">
             <TbZodiacAquarius />
           </div>
-          <div className={`text-[5rem] ${isInvertedColors ? 'text-black' : 'text-[#9B4DFF]'} opacity-70`}>
+          <div className="text-[6.25rem] text-[#9B4DFF] opacity-70">
             <TbZodiacScorpio />
           </div>
         </div>
       </div>
       <button
-        onClick={() => downloadBanner(index, "png")}
+        onClick={() => downloadBanner(1, "png")}
         className="px-4 py-2 bg-white text-black rounded hover:bg-gray-100 transition"
       >
-        Descargar Variante {index + 1}
+        Descargar Banner TTIBETT con Signos
       </button>
     </div>
   );
@@ -71,10 +101,8 @@ export default function TTIBETTBanner() {
         }
       `}</style>
 
-      {renderVariant(false, false, 0)}
-      {renderVariant(false, true, 1)}
-      {renderVariant(true, false, 2)}
-      {renderVariant(true, true, 3)}
+      {renderFirstBanner()} {/* Primer banner sin signos zodiacales */}
+      {renderSecondBanner()} {/* Segundo banner con signos zodiacales */}
 
       <Link href="/logo" className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition mt-4">
         Ver y Descargar Logo 1:1

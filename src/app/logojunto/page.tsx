@@ -133,7 +133,7 @@ export default function LogoJuntoPage() {
         {/* Logo Colorido */}
         <div
           ref={colorfulLogoRef}
-          className={`relative w-[500px] h-[500px] flex items justify-center bg-black shadow-lg overflow-hidden ${
+          className={`relative w-[500px] h-[500px] flex items justify-center bg-black   shadow-lg overflow-hidden ${
             isRendered ? "hidden" : ""
           }`}
         >
