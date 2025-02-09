@@ -1,3 +1,4 @@
+//icons\my-next-app\src\app\page.tsx
 "use client";
 
 import { useRef } from "react";
@@ -51,6 +52,7 @@ export default function TTIBETTBanner() {
       </button>
     </div>
   );
+
   const renderThirdBanner = () => (
     <div className="flex flex-col items-center gap-4 p-4">
       <div
@@ -81,6 +83,7 @@ export default function TTIBETTBanner() {
       </button>
     </div>
   );
+
   const renderSecondBanner = () => (
     <div className="flex flex-col items-center gap-4 p-4">
       <div
@@ -115,12 +118,10 @@ export default function TTIBETTBanner() {
         onClick={() => downloadBanner(1, "png")}
         className="px-4 py-2 bg-white text-black rounded hover:bg-gray-100 transition"
       >
-        Descargar Banner TTIBETT con Sigssssnos
+        Descargar Banner TTIBETT con Signos
       </button>
     </div>
   );
-
-
 
   return (
     <div className="flex flex-col items-center gap-4 p-4">
@@ -132,17 +133,17 @@ export default function TTIBETTBanner() {
       `}</style>
 
       {renderFirstBanner()} {/* Primer banner sin signos zodiacales */}
-
-      
       {renderThirdBanner()} {/* Nuevo banner con fondo blanco y letras naranjas */}
       {renderSecondBanner()} {/* Segundo banner con signos zodiacales */}
 
-      
       <Link href="/logo" className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition mt-4">
         Ver y Descargar Logo 1:1
       </Link>
       <Link href="/logojunto" className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition mt-4">
         Ver Logo Junto
+      </Link>
+      <Link href="/vegas" className="px-4 py-2 bg-black text-white rounded hover:bg-gray-800 transition mt-4">
+        Ir a Vegas
       </Link>
     </div>
   );
